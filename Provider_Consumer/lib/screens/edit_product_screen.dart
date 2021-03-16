@@ -116,7 +116,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
             .addProduct(_editedProduct);
       }
       catch (error) {
-        showDialog(
+        await showDialog(
               context: context, 
               builder: (ctx) => AlertDialog(
                 title: Text('An error occuered!!'),
