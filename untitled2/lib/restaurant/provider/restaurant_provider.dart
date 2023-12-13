@@ -9,7 +9,7 @@ import 'package:untitled2/restaurant/repository/restaurant_repository.dart';
 final restaurantDetailProvider = Provider.family<RestaurantModel?, String>((ref, id) {
   final state = ref.watch(restaurantProvider);
 
-  if(state is! CursorPagination<RestaurantModel>) {
+  if(state is! CursorPagination) {
     return null;
   }
   return state.data.firstWhere((element) => element.id == id);
@@ -154,7 +154,7 @@ class RestaurantStateNotifier extends StateNotifier<CursorPaginationBase> {
     // getDetail (id : 2);
     // [RestaurantModel(1), RestaurantDetailModel(2), RestaurantModel(3)]
     state = pState.copyWith(
-      data: pState.data.map((e) => e.id == id ? resp: e).toList()
+      data: pState.data.map<RestaurantModel>((e) => e.id == id ? resp: e).toList()
     );
   }
 }
