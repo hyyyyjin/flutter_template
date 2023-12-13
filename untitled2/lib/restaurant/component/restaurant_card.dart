@@ -67,7 +67,7 @@ class RestaurantCard extends StatelessWidget {
           // image,
         ClipRRect(
           child: image,
-          borderRadius: BorderRadius.circular(12.0),
+          // borderRadius: BorderRadius.circular(12.0),
         ),
         const SizedBox(height: 16.0),
         Padding(
