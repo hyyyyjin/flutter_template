@@ -8,17 +8,30 @@ import 'package:untitled2/restaurant/provider/restaurant_provider.dart';
 
 import '../model/restaurant_model.dart';
 
-class RestaurantDetailScreen extends ConsumerWidget {
+class RestaurantDetailScreen extends ConsumerStatefulWidget {
   final String id;
   const RestaurantDetailScreen({
     required this.id,
     super.key
   });
-  
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
 
-    final state = ref.watch(restaurantDetailProvider(id));
+  @override
+  ConsumerState<RestaurantDetailScreen> createState() => _RestaurantDetailScreenState();
+}
+
+class _RestaurantDetailScreenState extends ConsumerState<RestaurantDetailScreen> {
+
+
+  @override
+  void initState() {
+    super.initState();
+    ref.read(restaurantProvider);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    final state = ref.watch(restaurantDetailProvider(widget.id));
 
     if(state == null) {
       return DefaultLayout(
@@ -91,4 +104,5 @@ class RestaurantDetailScreen extends ConsumerWidget {
       ),
     );
   }
+
 }
