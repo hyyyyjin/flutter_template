@@ -69,13 +69,13 @@ class RestaurantCard extends StatelessWidget {
             tag: ObjectKey(heroKey),
             child: ClipRRect(
               child: image,
-              borderRadius: BorderRadius.circular(isDetail? 0 : 12.0),
+              // borderRadius: BorderRadius.circular(isDetail? 0 : 12.0),
             ),
           ),
         if(heroKey == null)
           ClipRRect(
             child: image,
-            borderRadius: BorderRadius.circular(isDetail? 0 : 12.0),
+            // borderRadius: BorderRadius.circular(isDetail? 0 : 12.0),
           ),
         const SizedBox(height: 16.0),
         Padding(

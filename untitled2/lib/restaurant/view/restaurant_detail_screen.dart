@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:untitled2/common/layout/default_layout.dart';
 import 'package:untitled2/product/component/product_card.dart';
+import 'package:untitled2/rating/component/rating_card.dart';
 import 'package:untitled2/restaurant/component/restaurant_card.dart';
 import 'package:untitled2/restaurant/model/restaurant_detail_model.dart';
 import 'package:untitled2/restaurant/provider/restaurant_provider.dart';
@@ -47,14 +49,52 @@ class _RestaurantDetailScreenState extends ConsumerState<RestaurantDetailScreen>
           renderTop(
             model: state,
           ),
-          if(state is RestaurantDetailModel)
-            renderLabel(),
-          if(state is RestaurantDetailModel)
-            renderProducts(
-            products: state.products
+          if(state is !RestaurantDetailModel) rederLoading(),
+          if(state is RestaurantDetailModel) renderLabel(),
+          if(state is RestaurantDetailModel) renderProducts(products: state.products),
+
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            sliver: SliverToBoxAdapter(
+              child: RatingCard(
+                  avatarImage: AssetImage(
+                    'asset/img/logo/codefactory_logo.png'
+                  ),
+                  content: '맛잇오',
+                  email: 'test@ai',
+                  images: [],
+                  rating: 5
+              ),
+            ),
           )
         ],
       )
+    );
+  }
+
+  SliverPadding rederLoading() {
+    return SliverPadding(
+      padding: EdgeInsets.symmetric(
+          vertical: 16.0,
+          horizontal: 16.0
+      ),
+      sliver: SliverList(
+        delegate: SliverChildListDelegate(
+          List.generate(
+              3, (index) =>
+              Padding(
+                padding: const EdgeInsets.only(bottom: 32.0),
+                child: SkeletonParagraph(
+                  style: SkeletonParagraphStyle(
+                    lines: 5,
+                    padding: EdgeInsets.zero,
+
+                  ),
+                ),
+              )
+          )
+        ),
+      ),
     );
   }
 
