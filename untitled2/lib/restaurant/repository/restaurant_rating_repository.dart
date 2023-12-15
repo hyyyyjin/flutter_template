@@ -4,6 +4,7 @@ import 'package:retrofit/retrofit.dart';
 import 'package:untitled2/common/const/data.dart';
 import 'package:untitled2/common/dio/dio.dart';
 import 'package:untitled2/common/model/pagination_params.dart';
+import 'package:untitled2/common/repository/base_pagination_repository.dart';
 import 'package:untitled2/rating/model/rating_model.dart';
 import '../../common/model/cursor_pagination_model.dart';
 
@@ -17,7 +18,7 @@ final restaurantRatingRepositoryProvider =
 
 // http://$ip/restaurant/:rid/rating
 @RestApi()
-abstract class RestaurantRatingRepository {
+abstract class RestaurantRatingRepository implements IBasePaginationRepository<RatingModel>{
 
   factory RestaurantRatingRepository(Dio dio, {String baseUrl})
   = _RestaurantRatingRepository;
