@@ -29,9 +29,6 @@ class RatingCard extends StatelessWidget {
 
   factory RatingCard.fromModel({ required RatingModel model }) {
 
-    print ('RatingCard');
-    print (model.imgUrls);
-
     return RatingCard(
         avatarImage: NetworkImage(
           model.user.imageUrl,
@@ -58,10 +55,13 @@ class RatingCard extends StatelessWidget {
           content: content,
         ),
         if(images.length > 0)
-          SizedBox(
-            height: 100,
-            child: _Images(
-              images: images,
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: SizedBox(
+              height: 100,
+              child: _Images(
+                images: images,
+              ),
             ),
           ),
       ],
@@ -151,7 +151,7 @@ class _Images extends StatelessWidget {
               (index, e) => Padding(
                 padding: EdgeInsets.only(right: index == images.length - 1 ? 0 : 16.0),
                 child: ClipRRect (
-                  borderRadius: BorderRadius.circular(8.0),
+                  // borderRadius: BorderRadius.circular(8.0),
                   child: e,
                 ),
               )

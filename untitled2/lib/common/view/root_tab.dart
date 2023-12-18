@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled2/common/const/colors.dart';
 import 'package:untitled2/common/layout/default_layout.dart';
+import 'package:untitled2/product/view/product_screen.dart';
 import 'package:untitled2/restaurant/view/restaurant_screen.dart';
 
 class RootTab extends StatefulWidget {
@@ -47,7 +48,7 @@ class _RootTabState extends State<RootTab>
         controller: controller,
         children: [
           RestaurantScreen(),
-          Center(child: Container(child: Text('음식'),)),
+          ProductScreen(),
           Center(child: Container(child: Text('주문'),)),
           Center(child: Container(child: Text('프로필'),))
         ],

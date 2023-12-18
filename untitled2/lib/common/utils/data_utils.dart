@@ -6,7 +6,6 @@ class DataUtils {
   }
 
   static List<String> listPathToUrls(List paths) {
-    print ('listPathToUrls $paths');
     return paths.map((e) => pathToUrl(e)).toList();
   }
 }
