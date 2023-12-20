@@ -4,7 +4,11 @@ import 'package:untitled2/common/layout/default_layout.dart';
 import 'package:untitled2/product/view/product_screen.dart';
 import 'package:untitled2/restaurant/view/restaurant_screen.dart';
 
+import '../../user/view/profile_screen.dart';
+
 class RootTab extends StatefulWidget {
+
+  static String get routeName => 'home';
 
   const RootTab({
     Key? key
@@ -50,7 +54,7 @@ class _RootTabState extends State<RootTab>
           RestaurantScreen(),
           ProductScreen(),
           Center(child: Container(child: Text('주문'),)),
-          Center(child: Container(child: Text('프로필'),))
+          ProfileScreen()
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:untitled2/common/const/data.dart';
 import 'package:untitled2/common/secure_storage/secure_storage.dart';
+import 'package:untitled2/user/provider/auth_provider.dart';
+import 'package:untitled2/user/provider/user_me_provider.dart';
 
 final dioProvider = Provider((ref) {
   final dio = Dio();
@@ -10,7 +12,8 @@ final dioProvider = Provider((ref) {
 
   dio.interceptors.add(
     CustomInterceptor (
-        storage: storage
+        storage: storage,
+        ref: ref
     )
   );
   return dio;
@@ -18,9 +21,11 @@ final dioProvider = Provider((ref) {
 
 class CustomInterceptor extends Interceptor {
   final FlutterSecureStorage storage;
+  final Ref ref; // 모든 Provider를 읽어들일 수 있다.
 
   CustomInterceptor({
     required this.storage,
+    required this.ref
   });
 
   // 1) 요청 보낼 때
@@ -97,6 +102,7 @@ class CustomInterceptor extends Interceptor {
             }
           )
         );
+
         final accessToken = resp.data['accessToken'];
         final options = err.requestOptions;
 
@@ -112,8 +118,21 @@ class CustomInterceptor extends Interceptor {
 
         return handler.resolve(response);
       } on DioError catch(e) {
+        // refreshToken 까지 모두 만료 되었을 경우
+        // A, B
+        // A -> B 의 친구
+        // B -> A 의 친구
+        // 사람 입장: A와 B는 친구다.
+        // 컴퓨터 : A -> B -> A ... -> B 무한 루프
+        // userMeProvider는 dio가 필요하고, dio는 userMeProvider가 필요한 상황
+
+        // 해결 방법:
+        ref.read(authProvider.notifier).logout();
+
         return handler.reject(e);
       }
     }
+
+    return handler.reject(err);
   }
 }

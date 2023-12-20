@@ -7,6 +7,9 @@ class PathParamScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print('Path Param : ${GoRouterState.of(context).pathParameters['name']}');
+
     return DefaultLayout(
         body: ListView(
           children: [

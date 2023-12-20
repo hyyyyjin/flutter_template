@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:untitled2/common/component/pagination_list_view.dart';
 import 'package:untitled2/common/utils/pagination_utils.dart';
 import 'package:untitled2/restaurant/component/restaurant_card.dart';
@@ -43,10 +44,13 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
         itemBuilder: <RestaurantModel>(_, index, model) {
           return GestureDetector(
               onTap: (){
-                Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (_) => RestaurantDetailScreen (id : model.id)
-                    )
+                // 아래와 같음 context.go('/restaurant/${model.id}');
+                // 모바일에서는 queryParam을 쓰지 않는 것을 권고함
+                context.goNamed(
+                    RestaurantDetailScreen.routeName,
+                    pathParameters: {
+                      'rid': model.id
+                    }
                 );
               },
               child: RestaurantCard.fromModel(model: model)

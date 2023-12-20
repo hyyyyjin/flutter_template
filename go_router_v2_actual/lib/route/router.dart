@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:go_router_v2_actual/screens/10_transition_screen_1.dart';
+import 'package:go_router_v2_actual/screens/11_error_screen.dart';
 import 'package:go_router_v2_actual/screens/1_basic_screen.dart';
 import 'package:go_router_v2_actual/screens/2_named_screen.dart';
 import 'package:go_router_v2_actual/screens/3_push_screen.dart';
@@ -146,8 +148,17 @@ final router = GoRouter(
               pageBuilder: (_, state) =>
                   CustomTransitionPage (
                       child: TransitionScreenTwo(),
-                      transitionsBuilder: (context, animation, secondaryAnimation) {
-
+                      transitionDuration: Duration(seconds: 3),
+                      // animation 앞으로 갈때 애니메이션
+                      // secondaryAnimation 거꾸로 갈때 애니메이션
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        // FadeTransition : fade in/out
+                        // ScaleTransition : Scale up / down 등등 화면 전환 효과, animation 전환 속도도 설정 가능
+                        return FadeTransition(
+                            // 투명도 opacity
+                            opacity: animation,
+                            child: child,
+                        );
                       }
                   )
             )
@@ -156,4 +167,8 @@ final router = GoRouter(
       ],
     )
   ],
+  errorBuilder: (context, state) => ErrorScreen(
+      error: state.error.toString()
+  ),
+  debugLogDiagnostics: true,
 );
