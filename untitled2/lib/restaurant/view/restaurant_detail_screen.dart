@@ -73,7 +73,8 @@ class _RestaurantDetailScreenState extends ConsumerState<RestaurantDetailScreen>
           badgeContent: Text(
             basket.fold<int>(0, (previous, next) => previous + next.count).toString(),
             style: TextStyle(
-              color: PRIMARY_COLOR
+              color: PRIMARY_COLOR,
+              fontSize: 10.0,
             ),
           ),
           child: Icon(Icons.shopping_basket_outlined),
