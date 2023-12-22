@@ -4,10 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:untitled2/common/view/root_tab.dart';
 import 'package:untitled2/common/view/splash_screen.dart';
+import 'package:untitled2/order/view/order_done_screen.dart';
 import 'package:untitled2/restaurant/view/restaurant_detail_screen.dart';
 import 'package:untitled2/user/model/user_model.dart';
 import 'package:untitled2/user/provider/user_me_provider.dart';
 import 'package:untitled2/user/view/login_screen.dart';
+
+import '../../restaurant/view/basket_screen.dart';
 
 // return : AuthProvider
 final authProvider = ChangeNotifierProvider<AuthProvider>((ref) {
@@ -39,6 +42,16 @@ class AuthProvider extends ChangeNotifier {
           )
         )
       ]
+    ),
+    GoRoute(
+      path: '/basket',
+      name: BasketScreen.routeName,
+      builder: (_, __) => BasketScreen(),
+    ),
+    GoRoute(
+      path: '/order_done',
+      name: OrderDoneScreen.routeName,
+      builder: (_, __) => OrderDoneScreen(),
     ),
     GoRoute(
       path: '/splash',
